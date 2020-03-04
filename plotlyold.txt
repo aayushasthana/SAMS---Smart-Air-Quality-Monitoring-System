@@ -1,0 +1,57 @@
+ 		function getData() {
+		 return Math.random()* (1 - 1000)
+		}
+		
+		function getDataY1() {
+         return Math.random()*(700 - 350) + 350
+		 }
+		
+		function getDataY2() {
+         return Math.random() *(50 - 5) + 5;
+		 }
+		
+		var trace1 = {
+  x: [1, 2, 3],
+  y: [getDataY1(), getDataY1(), getDataY1()],
+  name: 'yaxis data',
+  type: 'scatter'
+};
+
+var trace2 = {
+  x: [2, 3, 4],
+  y: [getDataY2(), getDataY2(), getDataY2()],
+  name: 'yaxis2 data',
+  yaxis: 'y2',
+  type: 'scatter'
+};
+
+var data = [trace1, trace2];
+
+var layout = {
+  title: 'Double Y Axis Example',
+  yaxis: {title: 'yaxis title'},
+  yaxis2: {
+    title: 'yaxis2 title',
+    titlefont: {color: 'rgb(148, 103, 189)'},
+    tickfont: {color: 'rgb(148, 103, 189)'},
+    overlaying: 'y',
+    side: 'right'
+  }
+};
+
+Plotly.newPlot('chart', data, layout);
+
+var cnt = 0;
+		setInterval(function() {
+			Plotly.extendTraces('chart', { y: [[getData()]] }, [0])
+			
+			cnt = cnt + 1;
+			
+			if(cnt > 50) {
+			   Plotly.relayout('chart',{
+					xaxis: {
+							  range: [cnt-50,cnt]
+						   }
+				});
+			}
+		}, 200);	
