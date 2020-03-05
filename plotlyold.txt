@@ -39,6 +39,7 @@ var layout = {
   }
 };
 
+
 Plotly.newPlot('chart', data, layout);
 
 var cnt = 0;
